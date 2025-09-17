@@ -1,6 +1,5 @@
 # COVID-19-India-Forecast
 # A time series analysis and forecasting of daily new COVID-19 cases in India using an ARIMA model.
-# Forecasting COVID-19 Cases in India: A Time Series Analysis
 # Author: [Radha Krishna Jha]
 # Date: September 17, 2025
 # 1. Introduction
@@ -45,3 +44,36 @@ After training the model, we use it to forecast the number of daily new cases fo
 
 Conclusion: This analysis demonstrates the application of an ARIMA model for forecasting a real-world epidemiological time series. The model provides a baseline prediction that captures the established trend in the data.
 It is important to note that this is a univariate model and does not account for external factors like vaccination rates, lockdowns, or new variants, which can cause sudden shifts in trends. For a more robust prediction, future work could involve using a SARIMAX model to include such external variables.
+
+# How It Works ⚙️
+This project forecasts the trend of daily new COVID-19 cases in India using a time series analysis approach. The methodology follows a structured, five-step process to transform raw data into a predictive model.
+
+Data Acquisition: The process begins by downloading the daily confirmed case data from the Johns Hopkins University CSSE GitHub repository. This ensures the analysis is based on a reliable and consistently updated source.
+
+Data Preprocessing: The raw dataset, which is in a wide format (with dates as columns), is programmatically cleaned and prepared. This involves:
+
+Filtering the data to isolate records for India.
+
+Reshaping the data into a long time-series format.
+
+Calculating the daily new cases from the cumulative totals to get our target variable.
+
+Exploratory Data Analysis (EDA): Before modeling, the time series of daily cases is plotted. This visualization helps in understanding the historical trends, identifying major infection waves, and observing the overall behavior of the pandemic's spread over time.
+
+ARIMA Model Training: An ARIMA (AutoRegressive Integrated Moving Average) model is trained on the prepared historical data. This statistical model learns the underlying temporal patterns, including trend and momentum, from the sequence of past case numbers.
+
+Forecasting and Visualization: Finally, the trained ARIMA model is used to predict the number of daily new cases for the next 30 days. The forecasted data is then plotted alongside the historical data to provide a clear, intuitive visualization of the expected future trend.
+
+
+# Detailed Description For the "Modeling"
+The forecasting model implemented in this project is an ARIMA (AutoRegressive Integrated Moving Average) model. ARIMA is a powerful statistical tool for time series analysis because it can capture complex temporal structures within the data.
+
+# Our specific model, ARIMA(5, 1, 0), is defined by its three components:
+
+AR (AutoRegressive) - p=5: This component assumes that the value of a new case count is dependent on its own past values. The p=5 parameter means the model looks at the previous five days of data to predict the next day's value.
+
+I (Integrated) - d=1: This component addresses trends in the data by "differencing" it. A d=1 means the model looks at the change from one day to the next, rather than the raw counts. This helps to stabilize the time series, making patterns easier to identify.
+
+MA (Moving Average) - q=0: This component would normally use past forecast errors to improve the prediction. Since q=0, this component was not used in our final model configuration.
+
+In summary, the model predicts future COVID-19 cases by analyzing the trends and patterns from the last five days of case data. It's a robust baseline model for this kind of forecasting task but does not account for external factors like lockdowns or new variants.
